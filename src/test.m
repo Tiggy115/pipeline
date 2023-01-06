@@ -1,0 +1,1 @@
+facadeSeg("grazConfigFile.xml", "../tmp/", 2, "testList.txt");

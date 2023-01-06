@@ -1,0 +1,43 @@
+<drwn>
+  <drwnMultiSegConfig>
+    <!-- data options -->
+    <option name="baseDir" value="../" />
+		<option name="imgDir" value="img/" />
+		<option name="cacheDir" value="cache/" />
+		<option name="modelsDir" value="model_graz/"/>
+		<option name="outputDir" value="out/" />
+
+    <option name="imgExt" value=".png" />
+    <option name="lblExt" value=".txt" />
+
+    <option name="useCache" value="false" />
+
+    <!-- region definitions -->
+		<regionDefinitions>
+			<region id="0" name="door" color="255 128 0"/>
+			<region id="1" name="window" color="255 0 0"/>
+			<region id="2" name="wall" color="255 255 0"/>
+			<region id="3" name="sky" color="128 255 255"/>
+    </regionDefinitions>
+  </drwnMultiSegConfig>
+
+  <drwnSegImagePixelFeatures>
+    <!-- feature options -->
+    <option name="filterBandwidth" value="1" />
+    <option name="featureGridSpacing" value="5" />
+    <option name="includeRGB" value="true" />
+    <option name="includeHOG" value="true" />
+    <option name="includeLBP" value="true" />
+    <option name="includeRowCol" value="true" />
+    <option name="includeLocation" value="true" />
+		<option name="auxFeatureDir" value="../out/auxFeatures/" />
+		<option name="auxFeatureExt" value=".doorfeatures.bin .windowfeatures.bin" />
+  </drwnSegImagePixelFeatures>
+
+  <drwnCodeProfiler enabled="true" />
+  <drwnLogger logLevel="VERBOSE"
+		logFile="../out/graz.log" />
+  <drwnThreadPool threads="8" />
+  <drwnConfusionMatrix colSep=" || " rowBegin="    || " rowEnd=" \" />
+  <drwnHOGFeatures blockSize="1" normClippingLB="0.1" normClippingUB="0.5" />
+</drwn>

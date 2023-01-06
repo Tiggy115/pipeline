@@ -1,0 +1,47 @@
+<drwn>
+  <drwnMultiSegConfig>
+    <!-- data options -->
+    <option name="baseDir" value="../" />
+		<option name="imgDir" value="img/"/>
+		<option name="cacheDir" value="cache/" />
+		<option name="modelsDir" value="model/"/>
+		<option name="outputDir" value="out/" />
+
+    <option name="imgExt" value=".png" />
+    <option name="lblExt" value=".txt" />
+
+    <option name="useCache" value="false" />
+
+    <!-- region definitions -->
+		<regionDefinitions>
+			<region id="0" name="building" color="128 0 0"/>
+			<region id="1" name="car" color="128 0 128"/>
+			<region id="2" name="door" color="128 128 0"/>
+			<region id="3" name="pavement" color="128 128 128"/>
+			<region id="4" name="road" color="128 64 0"/>
+			<region id="5" name="sky" color="0 128 128"/>
+			<region id="6" name="vegetation" color="0 128 0"/>
+			<region id="7" name="window" color="0 0 128"/>
+    </regionDefinitions>
+  </drwnMultiSegConfig>
+
+  <drwnSegImagePixelFeatures>
+    <!-- feature options -->
+    <option name="filterBandwidth" value="1" />
+    <option name="featureGridSpacing" value="5" />
+    <option name="includeRGB" value="true" />
+    <option name="includeHOG" value="true" />
+    <option name="includeLBP" value="true" />
+    <option name="includeRowCol" value="true" />
+    <option name="includeLocation" value="true" />
+		<option name="auxFeatureDir" value="../out/auxFeatures/" />
+		<option name="auxFeatureExt" value=".doorfeatures.bin .windowfeatures.bin" />
+  </drwnSegImagePixelFeatures>
+
+  <drwnCodeProfiler enabled="true" />
+  <drwnLogger logLevel="VERBOSE"
+		logFile="../out/etrims.log" />
+  <drwnThreadPool threads="8" />
+  <drwnConfusionMatrix colSep=" || " rowBegin="    || " rowEnd=" \" />
+  <drwnHOGFeatures blockSize="1" normClippingLB="0.1" normClippingUB="0.5" />
+</drwn>
