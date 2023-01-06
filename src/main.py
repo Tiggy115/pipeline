@@ -30,7 +30,7 @@ def cut_street_pavement(img):
     pixel_per_row = [None] * y
     all_pixel = 0
 
-    first_after_halve = int(y/2)
+    first_after_halve = int(y / 2)
     for i in range(y):
         row = img[i]
         pixel_count = 0
@@ -38,7 +38,7 @@ def cut_street_pavement(img):
             color = (pixel[0], pixel[1], pixel[2])
             if color == (0, 64, 128) or color == (128, 128, 128):
                 pixel_count += 1
-                if first_after_halve == int(y/2) and i > int(y/2):
+                if first_after_halve == int(y / 2) and i > int(y / 2):
                     first_after_halve = i
 
         pixel_per_row[i] = pixel_count
@@ -57,7 +57,7 @@ def cut_street_pavement(img):
 
 
 def cp_rectified_img(pan_name, angle):
-    pan = "../Panorama_Rectification/out/Pano_refine/" + pan_name
+    pan = "../lib/Panorama_Rectification/out/Pano_refine/" + pan_name
 
     suffix = "_VP_0_0" if angle < 0 else "_VP_0_1"
 
@@ -81,7 +81,7 @@ def check_routed(pan_name, angle):
 
 
 def check_rectified(pan_name, angle):
-    file = "../Panorama_Rectification/out/Pano_refine/" + pan_name
+    file = "../lib/Panorama_Rectification/out/Pano_refine/" + pan_name
     file += "_VP_0_0.jpg" if angle < 0 else "_VP_0_1.jpg"
     try:
         f = open(file)
@@ -92,8 +92,8 @@ def check_rectified(pan_name, angle):
 
 
 def cleanup():
-    os.system('rm -rf ../Panorama_Rectification/Pano_input/')
-    os.system("mkdir ../Panorama_Rectification/Pano_input/")
+    os.system('rm -rf ../lib/Panorama_Rectification/Pano_input/')
+    os.system("mkdir ../liv/Panorama_Rectification/Pano_input/")
 
     os.system('rm -rf ../img/')
     os.system("mkdir ../img/")
@@ -103,6 +103,13 @@ def cleanup():
     os.system('rm -rf ' + TMP + '*')
     os.system('rm -rf ../cache')
     os.system('rm tmp.sh')
+
+    dirs = ["../img", "../out", "../out/auxFeatures", "../lib/Panorama_Rectification/Pano_hl_z_vp",
+            "../lib/Panorama_Rectification/Pano_refine", "../lib/Panorama_Rectification/Rendering"]
+
+    for check_dir in dirs:
+        if not os.path.isdir(check_dir):
+            os.mkdir(check_dir)
 
 
 def calc_selected_point(angle, width):
@@ -175,13 +182,13 @@ def start_processing(pan, angle):
             os.chdir("..")
             return data
 
-    pan_local_ref = "../Panorama_Rectification/Pano_input/" + pan_name + ".png"
-    urllib.request.urlretrieve(pan, "../Panorama_Rectification/Pano_input/" + pan_name + ".png")
+    pan_local_ref = "../lib/Panorama_Rectification/Pano_input/" + pan_name + ".png"
+    urllib.request.urlretrieve(pan, "../lib/Panorama_Rectification/Pano_input/" + pan_name + ".png")
 
     time_rectify = 0
     if not rectified:
         start_rectify = timeit.default_timer()
-        pr.render_facades("../Panorama_Rectification/")
+        pr.render_facades("../lib/Panorama_Rectification/")
         stop_rectifiy = timeit.default_timer()
         time_rectify = stop_rectifiy - start_rectify
 
@@ -195,7 +202,7 @@ def start_processing(pan, angle):
     print(rectified_pan)
 
     """
-    os.system("cp -a ../Panorama_Rectification/Pano_new/Pano_refine/. ../img/")
+    os.system("cp -a ../lib/Panorama_Rectification/Pano_new/Pano_refine/. ../img/")
     os.system("mogrify -auto-orient -format png ../img/*.jpg")
     os.system("rm ../img/*.jpg")
     os.system("find ../img/ -name '*_VP_1_*' -delete")
@@ -276,7 +283,8 @@ def start_processing(pan, angle):
     time2 = stop2 - start2
     time3 = stop3 - start3
     time4 = stop4 - start4
-    print("Time: " + str(time) + ", rectify: " + str(time_rectify) + ", Time2: " + str(time2) + ", Time3: " + str(time3) + ", Time4: " + str(time4))
+    print("Time: " + str(time) + ", rectify: " + str(time_rectify) + ", Time2: " + str(time2) + ", Time3: " + str(
+        time3) + ", Time4: " + str(time4))
 
     os.chdir("..")
     return grammar

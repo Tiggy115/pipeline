@@ -18,5 +18,6 @@ If error message "*libopencv_core.so.2.4: cannot open shared object file: No suc
 sudo ldconfig -v
 ```
 
+To install the libraries, run **lib/setup.sh**
 
 Tested on Ubuntu 22.04.1 LTS  

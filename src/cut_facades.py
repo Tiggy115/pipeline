@@ -5,7 +5,7 @@ import math
 from statistics import median
 import cv2 as cv
 import numpy as np
-from lib.sky-detector.sky_detector import detector
+from lib.sky_detector import detector
 
 
 def lowest_not_black(img):
