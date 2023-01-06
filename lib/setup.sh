@@ -32,9 +32,5 @@ cd ..
 git clone https://github.com/pdollar/toolbox.git
 
 
-git clone https://github.com/cftang0827/sky-detector.git
-mv sky-detector/sky_detector sky_detector
-rm -rf sky-detector
-
 
 

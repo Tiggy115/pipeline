@@ -93,7 +93,7 @@ def check_rectified(pan_name, angle):
 
 def cleanup():
     os.system('rm -rf ../lib/Panorama_Rectification/Pano_input/')
-    os.system("mkdir ../liv/Panorama_Rectification/Pano_input/")
+    os.system("mkdir ../lib/Panorama_Rectification/Pano_input/")
 
     os.system('rm -rf ../img/')
     os.system("mkdir ../img/")

@@ -136,7 +136,7 @@ def render_facades(root):
         for i in range(len(zenith_consensus_org)):
             # result = Pano_hvp.hvp_from_zenith(ls_homo[i], zenith_consensus_org[i], params)
 
-            result = Panorama_Rectification.Pano_hvp.get_all_hvps(ls_homo[i], zenith_consensus_org[i], params)
+            result = lib.Panorama_Rectification.Pano_hvp.get_all_hvps(ls_homo[i], zenith_consensus_org[i], params)
             result_list.append(result)
 
         hvps_consensus_org = []

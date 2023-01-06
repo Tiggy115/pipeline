@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-anchorfrom lib.Panorama_Rectification import mnf_modes
+from lib.Panorama_Rectification import mnf_modes
 from lib.Panorama_Rectification.Panos.Pano_zp_hvp import calculate_consensus_vps
 
 

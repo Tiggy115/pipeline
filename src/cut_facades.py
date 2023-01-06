@@ -114,7 +114,7 @@ def cut_facade(img_path, selection):
     # cv.imshow("Source", src)
     # cv.imwrite("source.png", src)
     # cv.imwrite("tmp_erode.png", tmp_erode)
-    cv.imwrite("cut_"+img_path, img_cropped)
+    cv.imwrite(img_path, img_cropped)
     cv.imwrite("tmp.png", tmp)
 
     # cv.imshow("Detected Lines (in red) - Standard Hough Line Transform", cdst)

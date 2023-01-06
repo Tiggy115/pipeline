@@ -23,5 +23,7 @@
 /lib/Panorama_Rectification/out/Rendering/*
 /lib/Panorama_Rectification/tmp/*
 /lib/Panorama_Rectification/Pano_input/*
-/src/__pycache__/
-/lib/sky_detector/
+
+
+*.pyc
+/src/tmp/

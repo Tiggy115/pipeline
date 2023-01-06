@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import os.path
 import skimage.io
 import numpy as np
-anchorfrom lib.Panorama_Rectification.default_params import default_params
+from lib.Panorama_Rectification.default_params import default_params
 from lib.Panorama_Rectification.V import V
 
 class todo:
