@@ -2,12 +2,21 @@ import math
 
 from src.cgv import *
 
+"""
+Author: Kurt Cieslinski
+"""
 
 def lon2tile(lon, zoom):
+    """
+    from Bela Bohlender https://github.com/cc-bbohlender/cgv/tree/gh-pages
+    """
     return ((lon + 180) / 360) * math.pow(2, zoom)
 
 
 def lat2tile(lat, zoom):
+    """
+    from Bela Bohlender https://github.com/cc-bbohlender/cgv/tree/gh-pages
+    """
     return (
             ((1 - math.log(math.tan((lat * math.pi) / 180) + 1 / math.cos((lat * math.pi) / 180)) / math.pi) / 2) *
             math.pow(2, zoom)
@@ -15,20 +24,32 @@ def lat2tile(lat, zoom):
 
 
 def tile2lon(x, zoom):
+    """
+    from Bela Bohlender https://github.com/cc-bbohlender/cgv/tree/gh-pages
+    """
     return (x / math.pow(2, zoom)) * 360 - 180
 
 
 def tile2lat(y, zoom):
+    """
+    from Bela Bohlender https://github.com/cc-bbohlender/cgv/tree/gh-pages
+    """
     n = math.pi - (2 * math.pi * y) / math.pow(2, zoom)
     return (180 / math.pi) * math.atan(0.5 * (math.exp(n) - math.exp(-n)))
 
 
 def tileMeterRatio(y, zoom, tilePixelSize=256):
+    """
+    from Bela Bohlender https://github.com/cc-bbohlender/cgv/tree/gh-pages
+    """
     lat = tile2lat(y, zoom)
     return ((156543.03 * math.cos((lat * math.pi) / 180)) / math.pow(2, zoom)) * tilePixelSize
 
 
 def tileZoomRatio(fro, to):
+    """
+    from Bela Bohlender https://github.com/cc-bbohlender/cgv/tree/gh-pages
+    """
     return math.pow(2, to) / math.pow(2, fro)
 
 
@@ -94,6 +115,7 @@ def translate_grammar(facade, pan_coord):
     lot = face(lot_points)
 
     grammar_string = after(grammar_string, lot)
+    grammar_string = after(grammar_string, rotate(0, 0, 0))
     grammar_string = after(grammar_string, translate(0, 0, 0))
     grammar_string = after(grammar_string, extrude(height))
     grammar_string = after(grammar_string, to_faces())

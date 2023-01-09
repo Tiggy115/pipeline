@@ -10,7 +10,7 @@ Used non Python lib projects:
 - Darwin: https://github.com/sgould/drwn
 - toolbox: https://github.com/pdollar/toolbox
 
-
+The code in the "lib" directory is not mine and cited in the README.md files.
 
 If error message "*libopencv_core.so.2.4: cannot open shared object file: No such file or directory*" occurs, try:
 

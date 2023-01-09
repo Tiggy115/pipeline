@@ -1,5 +1,5 @@
 function CreateGTAnnotations(dataList,gtLabelDir,annotationDir,statsDir,doorLabel,windowLabel,numClasses)
-
+% from Gadde et al. (2017) https://bitbucket.org/rgadde/wacv15_code/src/master/
 doorParams = [];
 windowParams = [];
 

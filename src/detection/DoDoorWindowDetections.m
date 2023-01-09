@@ -1,4 +1,5 @@
 function DoDoorWindowDetections(testListFile,outDir,doorLabel,windowLabel,imageDir,numClasses, modelDir)
+% modified from Gadde et al. (2017) https://bitbucket.org/rgadde/wacv15_code/src/master/
 
 f = fopen(testListFile,'r');
 testDataFiles = textscan(f,'%s');

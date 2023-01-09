@@ -113,18 +113,11 @@ def cleanup():
 
 
 def calc_selected_point(angle, width):
-    angle += math.pi / 2 if angle > 0 else -math.pi / 2
-    alpha = abs(angle)
+    fov = 154 *2
+    t = math.degrees(abs(angle)) - (90 - (fov / 2))
+    p = (1 - t / fov) if angle > 0 else t / fov
+    return p * width
 
-    # print("angle: " + str(angle))
-    d = (math.tan(alpha) / math.tan(math.radians(154 / 2))) * width / 2
-    # print("d: " + str(d))
-
-    d = abs(d)
-
-    if angle < 0:
-        d = -d
-    return width / 2 + d
 
 
 def img_rot(angle, pan_angle):
@@ -194,9 +187,12 @@ def start_processing(pan, angle):
 
     start2 = timeit.default_timer()
 
-    pan_local = cv.imread(pan_local_ref)
-    width = len(pan_local[0])
+
     rectified_pan = cp_rectified_img(pan_name, pan_rot)
+
+    pan_local = cv.imread("../img/" + rectified_pan + ".png")
+    width = len(pan_local[0])
+
     clicked_house = calc_selected_point(pan_rot, width)
 
     print(rectified_pan)
@@ -225,6 +221,7 @@ def start_processing(pan, angle):
     os.system('rm tmp.sh')
 
     start3 = timeit.default_timer()
+
     eng = matlab.engine.start_matlab()
     # eng.cd(r"src", nargout=0)
 

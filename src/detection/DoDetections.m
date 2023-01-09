@@ -1,5 +1,5 @@
 function DoDetections(testDataFiles,imgDir,annotationDir,statsDir,modelDir,outputDir,doorLabel,windowLabel,numClasses)
-
+% from Gadde et al. (2017) https://bitbucket.org/rgadde/wacv15_code/src/master/
 
 %Default training parameters
 opts = acfTrain();

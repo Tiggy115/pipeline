@@ -5,16 +5,16 @@ from statistics import median
 
 import cv2 as cv
 import numpy as np
-import argparse
-import random as rng
 
 from bs4 import BeautifulSoup
-from sklearn import linear_model
 
 from src.facade import Facade
 
-rng.seed(12345)
 show_img = False
+
+"""
+Author: Kurt Cieslinski
+"""
 
 
 def area(lst):
@@ -140,7 +140,7 @@ def find_bounding_boxes(color_filtered_img, bool_door):
         rectangle_list.append(cv.boundingRect(cv.approxPolyDP(c, 3, True)))
         # area_lst.append((area(boundRect), boundRect))
 
-    merge_threshold = 10
+    merge_threshold = 8
     rectangle_margin_list = rectangle_list.copy()
 
     for i in range(len(rectangle_margin_list)):
@@ -184,9 +184,10 @@ def find_bounding_boxes(color_filtered_img, bool_door):
 
     if len(box_area_lst) == 0:
         return None
-    quant = np.quantile([i[1] for i in box_area_lst], 0.15)
-
-    box_area_lst = list(filter(lambda x: x[1] >= quant, box_area_lst))
+    max_window = max([i[1] for i in box_area_lst])
+    quant = np.quantile([i[1] for i in box_area_lst], 0.05)
+    box_area_lst = list(filter(lambda x: x[1] >= max_window * 0.15, box_area_lst))
+    #box_area_lst = list(filter(lambda x: x[1] >= quant, box_area_lst))
 
     if bool_door:
         max_door = max([i[1] for i in box_area_lst])
@@ -194,6 +195,16 @@ def find_bounding_boxes(color_filtered_img, bool_door):
 
     rectangle_list = [rectangle_margin[0] for rectangle_margin in box_area_lst]
     rectangle_list = remove_duplicates(rectangle_list)
+
+    if show_img:
+        for box in rectangle_list:
+            color = (255, 255, 255)
+            # cv.drawContours(img, contours_poly, i, color)
+            cv.rectangle(filtered_img, (int(box[0]), int(box[1])),
+                         (int(box[0] + box[2]), int(box[1] + box[3])), color, 5)
+
+        cv.imshow("filtered_img", filtered_img)
+        cv.waitKey()
 
     return rectangle_list
 

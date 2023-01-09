@@ -1,6 +1,9 @@
 from PIL import Image
 from bs4 import BeautifulSoup
 
+"""
+Author: Kurt Cieslinski
+"""
 
 def get_color_dic(xml):
     with open(xml, 'r') as f:

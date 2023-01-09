@@ -1,8 +1,6 @@
 import cv2
 from scipy.signal import medfilt
-from scipy import ndimage
 import numpy as np
-from matplotlib import pyplot as plt
 
 
 def cal_skyline(mask):
@@ -23,7 +21,6 @@ def cal_skyline(mask):
 
 
 def get_sky_region_gradient(img):
-
     h, w, _ = img.shape
 
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)

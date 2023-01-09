@@ -1,4 +1,5 @@
 function facadeSeg(configFileName, tmppath, stage, testFileName)
+    % modified from Gadde et al. (2017) https://bitbucket.org/rgadde/wacv15_code/src/master/
 
     %shFile = [tmppath "tmp.sh"];
     shFile = "tmp.sh";

@@ -9,6 +9,9 @@ from shapely.geometry import Polygon, LineString, Point
 
 plot_enable = False
 
+"""
+Author: Kurt Cieslinski
+"""
 
 def get_lot(angle, coordinate):
 

@@ -2,6 +2,10 @@ import json
 
 import cv2 as cv
 
+"""
+Author: Kurt Cieslinski
+"""
+
 
 class Facade:
     def __init__(self, width_anchor_x_lst=None, height_anchor_y_lst=None, first_floor_anchor=([], 0),

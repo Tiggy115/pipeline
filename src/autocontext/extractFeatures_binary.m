@@ -1,4 +1,5 @@
 function featstr = extractFeatures_binary(imgListFile, inputFolder, outputFolder, imageFolder, numClasses, fileExt)
+% from Gadde et al. (2017) https://bitbucket.org/rgadde/wacv15_code/src/master/
 
 file = fopen(imgListFile);
 unaryFiles = textscan(file,'%s');

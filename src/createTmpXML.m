@@ -1,4 +1,5 @@
 function createTmpXML(xmlFile, numStages, tmppath)
+    % from Gadde et al. (2017) https://bitbucket.org/rgadde/wacv15_code/src/master/
 
     xDoc = xmlread(xmlFile);
     drwn = xDoc.getDocumentElement;

@@ -1,3 +1,8 @@
+"""
+Author: Kurt Cieslinski
+Grammar syntax from Bela Bohlender https://github.com/cc-bbohlender/cgv/tree/gh-pages
+"""
+
 NULL = "null"
 THIS = "this"
 START = "Start -->"

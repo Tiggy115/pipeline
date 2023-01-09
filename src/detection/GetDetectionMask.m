@@ -1,4 +1,5 @@
 function mask = GetDetectionMask(imgSize,bbs,score);
+% from Gadde et al. (2017) https://bitbucket.org/rgadde/wacv15_code/src/master/
 
 mask = zeros(imgSize(1),imgSize(2));
 bbs = floor(bbs);

@@ -41,7 +41,6 @@ def cut_facade(img_path, selection):
                 if 87 <= abs(angle) <= 93 or 267 <= abs(angle) <= 273:
                     cv.line(tmp, (l[0], l[1]), (l[2], l[3]), (0, 0, 255), 3, cv.LINE_AA)
 
-
     kernel = np.ones((2, 2))
     tmp_dilate = cv.dilate(tmp, kernel, iterations=4)
     tmp_erode = cv.erode(tmp_dilate, kernel, iterations=4)
@@ -55,15 +54,15 @@ def cut_facade(img_path, selection):
 
         contour_area.append((cnt, h))
 
-    max_contour = max([cnt[1] for cnt in contour_area])
-    #q = np.quantile([i[1] for i in contour_area], 0.975)
+    max_h = max([cnt[1] for cnt in contour_area])
+    # q = np.quantile([i[1] for i in contour_area], 0.975)
 
     contours_filtered = []
     factor = 0.8
     while len(contours_filtered) < 3:
-        contours_filtered = [c[0] for c in contour_area if c[1] >= factor * max_contour]
+        contours_filtered = [c[0] for c in contour_area if c[1] >= factor * max_h]
         factor -= 0.01
-    #contours_filtered = [c[0] for c in contour_area if c[1] >= q]
+    # contours_filtered = [c[0] for c in contour_area if c[1] >= q]
 
     contours = contours_filtered
 
@@ -73,16 +72,16 @@ def cut_facade(img_path, selection):
     rows, cols = cdstP.shape[:2]
     for cnt in contours:
         [vx, vy, x, y] = cv.fitLine(cnt, cv.DIST_FAIR, 0, 0.01, 0.01)
-        lefty = int((-x * vy / vx) + y)
-        righty = int(((cols - x) * vy / vx) + y)
-        angle = np.arctan2(lefty - righty, -cols - 1) * 180.0 / np.pi
+        left_y = int((-x * vy / vx) + y)
+        right_y = int(((cols - x) * vy / vx) + y)
+        angle = np.arctan2(left_y - right_y, -cols - 1) * 180.0 / np.pi
         if 80 <= abs(angle) <= 100 or 260 <= abs(angle) <= 280:
             X = [p[0][0] for p in cnt]
             med = int(median(X))
             crop_lines.append(med)
             cv.line(cdstP, (med, 0), (med, rows - 1), (0, 0, 255), 2)
             try:
-                # cv.line(cdstP, (cols - 1, righty), (0, lefty), (0, 255, 0), 2)
+                # cv.line(cdstP, (cols - 1, right_y), (0, left_y), (0, 255, 0), 2)
                 pass
             except cv.error:
                 pass
@@ -110,7 +109,6 @@ def cut_facade(img_path, selection):
     crop_sky = lowest_not_black(sky)
     img_cropped = img_cropped[crop_sky:, :]
 
-
     # cv.imshow("Source", src)
     # cv.imwrite("source.png", src)
     # cv.imwrite("tmp_erode.png", tmp_erode)
@@ -125,4 +123,4 @@ def cut_facade(img_path, selection):
 
 
 if __name__ == '__main__':
-    cut_facade("img_VP_0_0.png", None)
+    cut_facade("panorama-83aejlYnx_Y7Q-8Jn-6d2g-3_VP_0_1.png", None)
