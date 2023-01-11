@@ -6,6 +6,7 @@ from src.cgv import *
 Author: Kurt Cieslinski
 """
 
+
 def lon2tile(lon, zoom):
     """
     from Bela Bohlender https://github.com/cc-bbohlender/cgv/tree/gh-pages
@@ -54,6 +55,9 @@ def tileZoomRatio(fro, to):
 
 
 def to_point(x, y, pan_coord):
+    """
+    modified from Bela Bohlender https://github.com/cc-bbohlender/cgv/tree/gh-pages
+    """
     glob_x = lon2tile(pan_coord[1], 0)
     glob_y = lat2tile(pan_coord[0], 0)
 

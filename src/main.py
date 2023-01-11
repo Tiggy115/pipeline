@@ -68,7 +68,7 @@ def cp_rectified_img(pan_name, angle):
     return pan_name + suffix
 
 
-def check_routed(pan_name, angle):
+def check_grammar(pan_name, angle):
     file = "../out/" + pan_name
     file += "_VP_0_0" if angle < 0 else "_VP_0_1"
     file += "_grammar.cgv"
@@ -83,6 +83,16 @@ def check_routed(pan_name, angle):
 def check_rectified(pan_name, angle):
     file = "../lib/Panorama_Rectification/out/Pano_refine/" + pan_name
     file += "_VP_0_0.jpg" if angle < 0 else "_VP_0_1.jpg"
+    try:
+        f = open(file)
+        f.close()
+        return "found"
+    except FileNotFoundError:
+        return ""
+
+
+def check_detected(pan_name):
+    file = "../out/" + pan_name + ".stage3.projMultiSeg6.txt"
     try:
         f = open(file)
         f.close()
@@ -113,11 +123,10 @@ def cleanup():
 
 
 def calc_selected_point(angle, width):
-    fov = 154 *2
+    fov = 154 * 2
     t = math.degrees(abs(angle)) - (90 - (fov / 2))
     p = (1 - t / fov) if angle > 0 else t / fov
     return p * width
-
 
 
 def img_rot(angle, pan_angle):
@@ -167,7 +176,7 @@ def start_processing(pan, angle):
 
     rectified = True if check_rectified(pan_name, pan_rot) != "" else False
 
-    check = check_routed(pan_name, pan_rot)
+    check = check_grammar(pan_name, pan_rot)
     if check != "":
         with open(check, 'r') as file:
             data = file.read().replace('\n', '')
@@ -186,7 +195,6 @@ def start_processing(pan, angle):
         time_rectify = stop_rectifiy - start_rectify
 
     start2 = timeit.default_timer()
-
 
     rectified_pan = cp_rectified_img(pan_name, pan_rot)
 
@@ -216,27 +224,30 @@ def start_processing(pan, angle):
 
     stop2 = timeit.default_timer()
 
+    detected = check_detected(rectified_pan)
+
     os.system('rm -rf ' + TMP + '*')
     os.system('rm -rf ../cache')
     os.system('rm tmp.sh')
 
     start3 = timeit.default_timer()
 
-    eng = matlab.engine.start_matlab()
-    # eng.cd(r"src", nargout=0)
+    if detected == "":
+        eng = matlab.engine.start_matlab()
+        # eng.cd(r"src", nargout=0)
 
-    eng.createTmpXML(CONFIG, STAGES, TMP, nargout=0)
-    for i in range(1, STAGES + 1):
-        print("Stage " + str(i) + ":")
-        xml = TMP + "_stage" + str(i) + ".xml"
-        eng.facadeSeg(xml, TMP, i, TEST_LIST, nargout=0)
-        os.system("./tmp.sh")
+        eng.createTmpXML(CONFIG, STAGES, TMP, nargout=0)
+        for i in range(1, STAGES + 1):
+            print("Stage " + str(i) + ":")
+            xml = TMP + "_stage" + str(i) + ".xml"
+            eng.facadeSeg(xml, TMP, i, TEST_LIST, nargout=0)
+            os.system("./tmp.sh")
 
-    eng.quit()
+        eng.quit()
 
-    os.system('rm -rf ' + TMP + '*')
-    os.system('rm -rf ../cache')
-    os.system('rm tmp.sh')
+        os.system('rm -rf ' + TMP + '*')
+        os.system('rm -rf ../cache')
+        os.system('rm tmp.sh')
 
     stop3 = timeit.default_timer()
     start4 = timeit.default_timer()

@@ -184,14 +184,15 @@ def find_bounding_boxes(color_filtered_img, bool_door):
 
     if len(box_area_lst) == 0:
         return None
-    max_window = max([i[1] for i in box_area_lst])
-    quant = np.quantile([i[1] for i in box_area_lst], 0.05)
-    box_area_lst = list(filter(lambda x: x[1] >= max_window * 0.15, box_area_lst))
-    #box_area_lst = list(filter(lambda x: x[1] >= quant, box_area_lst))
+    max_box = max([i[1] for i in box_area_lst])
+    # quant = np.quantile([i[1] for i in box_area_lst], 0.05)
+
+    # box_area_lst = list(filter(lambda x: x[1] >= quant, box_area_lst))
 
     if bool_door:
-        max_door = max([i[1] for i in box_area_lst])
-        box_area_lst = list(filter(lambda x: x[1] >= max_door * 0.6, box_area_lst))
+        box_area_lst = list(filter(lambda x: x[1] >= max_box * 0.6, box_area_lst))
+    else:
+        box_area_lst = list(filter(lambda x: x[1] >= max_box * 0.15, box_area_lst))
 
     rectangle_list = [rectangle_margin[0] for rectangle_margin in box_area_lst]
     rectangle_list = remove_duplicates(rectangle_list)
@@ -232,8 +233,7 @@ def box_segment(img_path, xml):
     # img_path = "test.png"
     img = cv.imread(img_path)
     rgb = cv.cvtColor(img, cv.COLOR_BGR2RGB)
-    # filter noise
-    se = cv.getStructuringElement(cv.MORPH_RECT, (10, 10))
+
     windows_img = rgb.copy()
     door_img = rgb.copy()
 
@@ -326,13 +326,9 @@ def box_segment(img_path, xml):
         column_list.remove([])
 
     height_anchor_y_lst = []
-    height_lst = []
-    anchor_y_lst = []
-    for i, floor in enumerate(floor_lst):
-        _, avg_height = box_dimension_quant(floor, 0.60)
-        height_anchor_y_lst.append((avg_height, med_anchor_y(floor)))
-        height_lst.append(avg_height)
-        anchor_y_lst.append(med_anchor_y(floor))
+    for floor in floor_lst:
+        _, quant_height = box_dimension_quant(floor, 0.60)
+        height_anchor_y_lst.append((quant_height, med_anchor_y(floor)))
 
     height_anchor_y_lst.sort(key=lambda x: x[1])
 
@@ -343,13 +339,9 @@ def box_segment(img_path, xml):
     first_floor_anchor = (first_floor_x_anchor_lst, first_floor_y_anchor)
 
     width_anchor_x_lst = []
-    width_lst = []
-    anchor_x_lst = []
-    for i, floor in enumerate(column_list):
-        avg_width, _ = box_dimension_quant(floor, 0.60)
-        width_anchor_x_lst.append((avg_width, med_anchor_x(floor)))
-        width_lst.append(avg_width)
-        anchor_x_lst.append(med_anchor_x(floor))
+    for column in column_list:
+        quant_width, _ = box_dimension_quant(column, 0.60)
+        width_anchor_x_lst.append((quant_width, med_anchor_x(column)))
 
     width_anchor_x_lst.sort(key=lambda x: x[1])
 
