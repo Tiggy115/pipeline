@@ -49,11 +49,11 @@ import os
 
 # plot options (0 if not plotted, figure number otherwise)
 class plots:
-    lsd = 1 # 10
-    ls_filter = 1 #11
-    zl = 1 #12
-    hl_modes = 1 #12
-    hl_samples = 1 #12
+    lsd = 0 # 10
+    ls_filter = 0 #11
+    zl = 0 #12
+    hl_modes = 0 #12
+    hl_samples = 0 #12
 
 def V(im, width, height, focal, params, tmp_count):
 

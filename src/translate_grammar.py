@@ -89,7 +89,7 @@ def translate_grammar(facade, pan_coord):
     # width = facade.width * scale_factor
     height = facade.height * scale_factor
 
-    no_door = door_rectangle_lst is None
+    no_door = len(door_rectangle_lst) == 0
 
     width_anchor_x_lst.reverse()
     width_anchor_x_lst = [(tup[0] * scale_factor, width - tup[1] * scale_factor) for tup in width_anchor_x_lst]
@@ -104,7 +104,6 @@ def translate_grammar(facade, pan_coord):
 
     first_floor_dim = (first_floor_dim[0] * scale_factor, first_floor_dim[1] * scale_factor)
 
-    door_rectangle_lst = []
     if not no_door:
         door_rectangle_lst = [(width - tup[0] * scale_factor, height - tup[1] * scale_factor,
                                tup[2] * scale_factor, tup[3] * scale_factor) for tup in door_rectangle_lst]

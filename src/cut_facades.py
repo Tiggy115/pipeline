@@ -25,7 +25,7 @@ def cut_facade(img_path, selection):
 
     blur = cv.GaussianBlur(src, (5, 5), 1)
     dst = cv.Canny(blur, 50, 100, None, 3)
-    cv.imwrite("dst_" + img_path, dst)
+    # cv.imwrite("dst_" + img_path, dst)
 
     cdstP = cv.cvtColor(dst, cv.COLOR_GRAY2BGR)
     # cdstP = np.copy(dst)
@@ -79,7 +79,7 @@ def cut_facade(img_path, selection):
             X = [p[0][0] for p in cnt]
             med = int(median(X))
             crop_lines.append(med)
-            cv.line(cdstP, (med, 0), (med, rows - 1), (0, 0, 255), 2)
+            cv.line(cdstP, (med, 0), (med, rows - 1), (0, 0, 255), 4)
             try:
                 # cv.line(cdstP, (cols - 1, right_y), (0, left_y), (0, 255, 0), 2)
                 pass
@@ -87,7 +87,7 @@ def cut_facade(img_path, selection):
                 pass
 
     selection = len(src[0]) / 2 if selection is None else selection
-    cv.line(cdstP, (int(selection), 0), (int(selection), rows - 1), (0, 255, 0), 2)
+    cv.line(cdstP, (int(selection), 0), (int(selection), rows - 1), (0, 255, 0), 4)
     cv.imwrite("cdstP.png", cdstP)
 
     crop_lines.sort()
@@ -102,25 +102,23 @@ def cut_facade(img_path, selection):
         crop_line_index = len(crop_lines) - 2
 
     img_cropped = src[:, crop_lines[crop_line_index]:crop_lines[crop_line_index + 1]]
+    cv.imwrite("img_cropped.png", img_cropped)
 
     # detect sky
     sky = detector.get_sky_region_gradient(img_cropped)
+    cv.imwrite("sky.png", sky)
 
     crop_sky = lowest_not_black(sky)
     img_cropped = img_cropped[crop_sky:, :]
 
     # cv.imshow("Source", src)
-    # cv.imwrite("source.png", src)
+
     # cv.imwrite("tmp_erode.png", tmp_erode)
     cv.imwrite(img_path, img_cropped)
     cv.imwrite("tmp.png", tmp)
-
-    # cv.imshow("Detected Lines (in red) - Standard Hough Line Transform", cdst)
-    # cv.imwrite("cdst.png", cdst)
-    # cv.imshow("Detected Lines (in red) - Probabilistic Line Transform", cdstP)
 
     # cv.waitKey()
 
 
 if __name__ == '__main__':
-    cut_facade("panorama-83aejlYnx_Y7Q-8Jn-6d2g-3_VP_0_1.png", None)
+    cut_facade("test.png", None)

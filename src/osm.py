@@ -2,7 +2,6 @@ from OSMPythonTools.overpass import Overpass
 from OSMPythonTools.overpass import overpassQueryBuilder
 from OSMPythonTools.api import Api
 
-from scipy.spatial import ConvexHull
 import matplotlib.pyplot as plt
 import numpy as np
 from shapely.geometry import Polygon, LineString, Point
@@ -13,14 +12,11 @@ plot_enable = False
 Author: Kurt Cieslinski
 """
 
-def get_lot(angle, coordinate):
 
+def get_lot(angle, coordinate):
     lat = coordinate[0]
     long = coordinate[1]
 
-    #angle = -np.pi / 4
-    #lat = 47.0632879
-    #long = 15.4458986
     n = 0.0005
 
     overpass = Overpass()
@@ -50,14 +46,26 @@ def get_lot(angle, coordinate):
         for x in b:
             if x not in tunnel_nodes and x not in [i[0] for i in tmp]:
                 node = api.query('node/' + str(x))
-                tag = node.tag
                 if node.tag("entrance") is None:
                     tmp.append((x, node.geometry()["coordinates"]))
 
         nodes.append(tmp)
 
     angle = -angle
-    view_poit = Point(long, lat)
+    view_point = Point(long, lat)
+
+    if plot_enable:
+        plt.axis('off')
+        plt.plot(long, lat, 'ro')
+        plt.plot([long, long + np.sin(angle) * n], [lat, lat + np.cos(angle) * n])
+        for points in nodes:
+            points = [i[1] for i in points]
+            l = len(points)
+            for i in range(l):
+                plt.plot([points[i][0], points[(i + 1) % l][0]],
+                         [points[i][1], points[(i + 1) % l][1]])
+
+        plt.show()
 
     filtered_nodes = []
     view_line = LineString([(long, lat), (long + np.sin(angle), lat + np.cos(angle))])
@@ -65,10 +73,11 @@ def get_lot(angle, coordinate):
         points = [i[1] for i in points]
         polygon = Polygon(points)
         if view_line.intersects(polygon):
-            dist = polygon.distance(view_poit)
+            dist = polygon.distance(view_point)
             filtered_nodes.append((points, dist))
 
     if plot_enable:
+        plt.axis('off')
         plt.plot(long, lat, 'ro')
         plt.plot([long, long + np.sin(angle) * n], [lat, lat + np.cos(angle) * n])
 
@@ -85,11 +94,17 @@ def get_lot(angle, coordinate):
                 # plt.plot([p1[0], p2[0]], [p1[1], p2[1]])
                 edges.append(LineString([(p1[0], p1[1]), (p2[0], p2[1])]))
 
+    if plot_enable:
+        l = len(nearest_poly)
+        for i in range(l):
+            plt.plot([nearest_poly[i][0], nearest_poly[(i + 1) % l][0]],
+                     [nearest_poly[i][1], nearest_poly[(i + 1) % l][1]])
+
     dist = float("inf")
     min_edge = None
     filtered_edges = [edge for edge in edges if edge.intersects(view_line)]
     for edge in filtered_edges:
-        dist_tmp = edge.distance(view_poit)
+        dist_tmp = edge.distance(view_point)
         if dist_tmp < dist:
             dist = dist_tmp
             min_edge = edge
@@ -105,13 +120,13 @@ def get_lot(angle, coordinate):
         i = 0 if a > 0 else 1
 
         if plot_enable:
-            plt.plot(x[i], y[i], 'ro')
+            plt.plot(x[i], y[i], 'bo')
             plt.plot(x, y)
 
         first_point_index = nearest_poly.index([x[i], y[i]])
 
         nearest_poly = nearest_poly[first_point_index:] + nearest_poly[:first_point_index]
-        if nearest_poly.index([x[1-i], y[1-i]]) != 1:
+        if nearest_poly.index([x[1 - i], y[1 - i]]) != 1:
             tmp = nearest_poly.copy()
             tmp = tmp[1:]
             tmp.reverse()
@@ -131,8 +146,8 @@ def get_lot(angle, coordinate):
 
 
 if __name__ == "__main__":
-    angle = -np.pi / 4
-    lat = 47.0632879
-    long = 15.4458986
+    angle = -1.0843861647984125
+    lat = 47.062593
+    long = 15.446344
 
     get_lot(angle, (lat, long))
