@@ -1,7 +1,6 @@
 import glob
 import math
 import os
-import shutil
 import timeit
 
 import numpy as np
@@ -9,14 +8,13 @@ import numpy as np
 from src.osm import get_lot
 from src.render_prediction import render_predictions
 from src.box_segment import box_segment
-from src.facade import Facade
 from src.translate_grammar import translate_grammar
 import cv2 as cv
 from src.cut_facades import cut_facade
 
 import lib.Panorama_Rectification.Batch_Simon_Panoramas_final as pr
-import matlab.engine
 import urllib.request
+from classify import do_classification
 
 CONFIG = "config/etrimsConfigFile.xml"
 TEST_LIST = "testList.txt"
@@ -160,8 +158,6 @@ def start_processing(pan, angle):
     p = os.path.split("/")
 
     os.chdir("src")
-    # os.system("export DARWIN="$PWD"")
-    # os.system("export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${DARWIN}/external/opencv/lib")
     cleanup()
 
     start = timeit.default_timer()
@@ -184,9 +180,9 @@ def start_processing(pan, angle):
             os.chdir("..")
             return data
 
-    pan_local_ref = "../lib/Panorama_Rectification/Pano_input/" + pan_name + ".png"
     urllib.request.urlretrieve(pan, "../lib/Panorama_Rectification/Pano_input/" + pan_name + ".png")
 
+    # step 1
     time_rectify = 0
     if not rectified:
         start_rectify = timeit.default_timer()
@@ -194,6 +190,7 @@ def start_processing(pan, angle):
         stop_rectifiy = timeit.default_timer()
         time_rectify = stop_rectifiy - start_rectify
 
+    # step 2
     start2 = timeit.default_timer()
 
     rectified_pan = cp_rectified_img(pan_name, pan_rot)
@@ -204,16 +201,6 @@ def start_processing(pan, angle):
     clicked_house = calc_selected_point(pan_rot, width)
 
     print(rectified_pan)
-
-    """
-    os.system("cp -a ../lib/Panorama_Rectification/Pano_new/Pano_refine/. ../img/")
-    os.system("mogrify -auto-orient -format png ../img/*.jpg")
-    os.system("rm ../img/*.jpg")
-    os.system("find ../img/ -name '*_VP_1_*' -delete")
-    os.system("mogrify -quality 50% ../img/*")
-    """
-
-    # print(clicked_house)
 
     cut_facade("../img/" + rectified_pan + ".png", clicked_house)
 
@@ -230,27 +217,11 @@ def start_processing(pan, angle):
     os.system('rm -rf ../cache')
     os.system('rm tmp.sh')
 
+    # step 3
     start3 = timeit.default_timer()
 
     if detected == "":
-        eng = matlab.engine.start_matlab()
-        # eng.cd(r"src", nargout=0)
-
-        eng.createTmpXML(CONFIG, STAGES, TMP, nargout=0)
-        for i in range(1, STAGES + 1):
-            print("Stage " + str(i) + ":")
-            xml = TMP + "_stage" + str(i) + ".xml"
-            eng.facadeSeg(xml, TMP, i, TEST_LIST, nargout=0)
-            os.system("./tmp.sh")
-
-        eng.quit()
-
-        os.system('rm -rf ' + TMP + '*')
-        os.system('rm -rf ../cache')
-        os.system('rm tmp.sh')
-
-    stop3 = timeit.default_timer()
-    start4 = timeit.default_timer()
+        do_classification(CONFIG, TEST_LIST, TMP, STAGES)
 
     pred_list = glob.glob('../out/' + rectified_pan + '.*.txt')
     for pred in pred_list:
@@ -268,8 +239,11 @@ def start_processing(pan, angle):
 
     img_path_png = "../out/" + rectified_pan + ".stage3.projMultiSeg6_pred_cut.png"
 
-    # facade = Facade()
-    # facade.read_json(img_path + ".json")
+    stop3 = timeit.default_timer()
+
+    # step 4
+    start4 = timeit.default_timer()
+
 
     facade = box_segment(img_path_png, CONFIG)
     lat, long = parse_lat_long(pan_name)

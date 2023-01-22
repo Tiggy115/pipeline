@@ -230,7 +230,7 @@ def translate_grammar(facade, pan_coord):
             if all_doors_cond == "false":
                 all_doors_cond = door_cond
             else:
-                all_doors_cond = or_o(door_cond, all_doors_cond)
+                all_doors_cond = and_o(door_cond, not_o(all_doors_cond))
 
     # colorize windows
     color_window = color("#1a5fb4")
