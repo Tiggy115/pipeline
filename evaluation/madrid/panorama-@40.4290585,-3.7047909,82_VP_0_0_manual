@@ -1,0 +1,144 @@
+Start -->
+	this ->
+	face(
+		point2( 36.21, 2.64 ),
+		point2( 34.61, 12.95 ),
+		point2( 41.29, 13.59 ),
+		point2( 42.69, 3.75 )
+	) ->
+	rotate(
+		-1,
+		0,
+		0
+	) ->
+	translate(
+		0,
+		-0.65,
+		0
+	) ->
+	extrude( 20.4 ) ->
+	toFaces( ) ->
+	if id( ) == "2" then {
+		split(
+			"z",
+			true,
+			0,
+			0.2,
+			2.43,
+			2.48,
+			1.77,
+			1.54,
+			1.45,
+			1.45,
+			1.46,
+			1.29,
+			1.57,
+			4.84
+		) ->
+		if
+			!index( ) % 12 == 2 && index( ) % 2 == 0
+		then {
+			split(
+				"x",
+				true,
+				0,
+				2.24,
+				0.78,
+				2.02,
+				0.92,
+				1.76,
+				1.16,
+				1.55
+			) ->
+			if
+				index( ) % 2 == 0
+			then { color( "#1c71d8" ) } else { this }
+		} else {
+			this ->
+			if index( ) == 2 then {
+				split(
+					"x",
+					true,
+					0,
+					1.97,
+					1.12,
+					1.44,
+					1.78,
+					1.07,
+					1.91,
+					1.14
+				) ->
+				if
+					index( ) % 8 == 2
+				then {
+					split(
+						"z",
+						true,
+						0.43,
+						1.84
+					) ->
+					if index( ) == 1 then { color( "#241f31" ) } else { this }
+				} else {
+					this ->
+					if
+						index( ) % 8 == 4
+					then {
+						split(
+							"z",
+							true,
+							2.17
+						) ->
+						if index( ) == 0 then { color( "#1c71d8" ) } else { this }
+					} else {
+						this ->
+						if
+							index( ) % 8 == 6
+						then {
+							split(
+								"z",
+								false,
+								0.68
+							) ->
+							if index( ) == 1 then { color( "#241f31" ) } else { this }
+						} else {
+							this
+						}
+					}
+				}
+			} else {
+				if
+					index( ) % 12 == 2
+				then {
+					split(
+						"x",
+						true,
+						0,
+						1.97,
+						1.12,
+						1.44,
+						1.78,
+						1.07,
+						1.91,
+						1.14
+					) ->
+					if
+						index( ) % 2 == 0
+					then {
+						split(
+							"z",
+							true,
+							0.43,
+							1.84
+						) ->
+						if index( ) == 1 then { color( "#1c71d8" ) } else { this }
+					} else {
+						this
+					}
+				} else {
+					this
+				}
+			}
+		}
+	} else {
+		this
+	}

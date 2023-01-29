@@ -1,0 +1,214 @@
+Start -->
+	this ->
+	face(
+		point2( 57.22, 54.16 ),
+		point2( 52.4, 39.78 ),
+		point2( 38.66, 43.25 ),
+		point2( 42.58, 57.07 )
+	) ->
+	rotate(
+		1,
+		0,
+		0
+	) ->
+	translate(
+		0,
+		-0.34,
+		0
+	) ->
+	extrude( 17.07 ) ->
+	toFaces( ) ->
+	if id( ) == "2" then {
+		split(
+			"z",
+			true,
+			0,
+			0.27,
+			4.05,
+			1.61,
+			1.99,
+			1,
+			2.49,
+			1.17,
+			2.22,
+			2.22
+		) ->
+		if
+			!index( ) % 10 == 2 && !index( ) % 10 == 4 && index( ) % 2 == 0
+		then {
+			split(
+				"x",
+				true,
+				0,
+				1.5,
+				1,
+				1.92,
+				1,
+				1.79,
+				1,
+				1.71,
+				1.19,
+				1.74,
+				1.12,
+				1.18
+			) ->
+			if
+				!index( ) % 12 == 6 && index( ) % 2 == 0
+			then {
+				this ->
+				split(
+					"z",
+					false,
+					0.6
+				) ->
+				if
+					index( ) % 2 == 1
+				then { color( "#1c71d8" ) } else { this }
+			} else {
+				if
+					index( ) % 12 == 6
+				then { color( "#1c71d8" ) } else { this }
+			}
+		} else {
+			if
+				index( ) % 10 == 4
+			then {
+				split(
+					"x",
+					true,
+					0,
+					1.5,
+					1,
+					1.92,
+					1.06,
+					1.79,
+					1.04,
+					1.71,
+					1.14,
+					1.74,
+					1.12,
+					1.16
+				) ->
+				if
+					index( ) % 2 == 0
+				then { color( "#1c71d8" ) } else { this }
+			} else {
+				if index( ) == 2 then {
+					split(
+						"x",
+						true,
+						0,
+						1.29,
+						1.29,
+						1.91,
+						1.08,
+						1.72,
+						1.07,
+						1.77,
+						1.16,
+						1.16,
+						2.01,
+						0.71
+					) ->
+					if
+						!index( ) % 12 == 2 && !index( ) % 12 == 10 && index( ) % 2 == 0
+					then {
+						split(
+							"z",
+							true,
+							0,
+							0.11,
+							0.95,
+							1,
+							1.98,
+							0
+						) ->
+						if
+							index( ) % 2 == 0
+						then { color( "#1c71d8" ) } else { this }
+					} else {
+						if
+							index( ) % 12 == 2
+						then {
+							split(
+								"z",
+								false,
+								1.14,
+								0.88
+							) ->
+							if index( ) == 0 then {
+								color( "#241f31" )
+							} else {
+								this ->
+								if index( ) == 2 then { color( "#1c71d8" ) } else { this }
+							}
+						} else {
+							if
+								index( ) % 12 == 10
+							then {
+								this ->
+								split(
+									"z",
+									true,
+									2.64,
+									0.4
+								) ->
+								if index( ) == 0 then {
+									color( "#241f31" )
+								} else {
+									this ->
+									if index( ) == 2 then { color( "#1c71d8" ) } else { this }
+								}
+							} else {
+								this
+							}
+						}
+					}
+				} else {
+					if
+						index( ) % 10 == 2
+					then {
+						split(
+							"x",
+							true,
+							0,
+							1.29,
+							1.29,
+							1.91,
+							1.08,
+							1.72,
+							1.07,
+							1.77,
+							1.16,
+							1.16,
+							2.01,
+							0.71
+						) ->
+						if
+							index( ) % 2 == 0
+						then {
+							split(
+								"z",
+								true,
+								0,
+								0.11,
+								0.95,
+								1,
+								1.98,
+								0
+							) ->
+							if
+								index( ) % 2 == 0
+							then { color( "#1c71d8" ) } else { this }
+						} else {
+							this
+						}
+					} else {
+						this
+					}
+				}
+			}
+		}
+	} else {
+		this
+	}

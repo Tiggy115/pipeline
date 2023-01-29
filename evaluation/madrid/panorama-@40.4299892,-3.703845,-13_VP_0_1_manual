@@ -1,0 +1,148 @@
+Start -->
+	this ->
+	face(
+		point2( 110.65, 20.56 ),
+		point2( 122.28, 23.2 ),
+		point2( 121.52, 14.92 ),
+		point2( 112.25, 11.95 )
+	) ->
+	rotate(
+		0,
+		0,
+		0
+	) ->
+	translate(
+		0,
+		-0.17,
+		0
+	) ->
+	extrude( 11.08 ) ->
+	toFaces( ) ->
+	if id( ) == "2" then {
+		split(
+			"z",
+			true,
+			0,
+			0.18,
+			2.03,
+			0.76,
+			1.87,
+			0.91,
+			1.48,
+			1.06,
+			1.24,
+			1.62
+		) ->
+		if
+			!index( ) % 10 == 2 && index( ) % 2 == 0
+		then {
+			split(
+				"x",
+				true,
+				0,
+				1.8,
+				0.96,
+				1.15,
+				0.82,
+				1.24,
+				0.81,
+				1.17,
+				0.86,
+				1.14,
+				0.9,
+				1.07
+			) ->
+			if
+				index( ) % 2 == 0
+			then { color( "#1c71d8" ) } else { this }
+		} else {
+			this ->
+			if index( ) == 2 then {
+				split(
+					"x",
+					true,
+					0,
+					1.83,
+					0.88,
+					1.11,
+					0.97,
+					1,
+					1,
+					1.07,
+					1,
+					1.04,
+					0.97,
+					1.06
+				) ->
+				if
+					!index( ) % 12 == 4 && !index( ) % 12 == 8 && !index( ) % 12 == 10 && index( ) % 2 == 0
+				then {
+					split(
+						"z",
+						true,
+						1,
+						1.03
+					) ->
+					if
+						index( ) % 2 == 1
+					then { color( "#1c71d8" ) } else { this }
+				} else {
+					if
+						index( ) % 12 == 4 || index( ) % 12 == 10
+					then {
+						split(
+							"z",
+							true,
+							1.66
+						) ->
+						if index( ) == 0 then { color( "#241f31" ) } else { this }
+					} else {
+						this ->
+						if
+							index( ) % 12 == 8
+						then { color( "#241f31" ) } else { this }
+					}
+				}
+			} else {
+				if
+					index( ) % 10 == 2
+				then {
+					split(
+						"x",
+						true,
+						0,
+						1.83,
+						0.88,
+						1.11,
+						0.97,
+						1,
+						1,
+						1.07,
+						1,
+						1.04,
+						0.97,
+						1.06
+					) ->
+					if
+						index( ) % 2 == 0
+					then {
+						split(
+							"z",
+							true,
+							1,
+							1.03
+						) ->
+						if
+							index( ) % 2 == 1
+						then { color( "#1c71d8" ) } else { this }
+					} else {
+						this
+					}
+				} else {
+					this
+				}
+			}
+		}
+	} else {
+		this
+	}

@@ -1,0 +1,168 @@
+Start -->
+	face(
+		point2( 58.5, 63.51 ),
+		point2( 62.84, 78.1 ),
+		point2( 51.78, 81.32 ),
+		point2( 50.82, 78.32 ),
+		point2( 49.75, 78.43 ),
+		point2( 48.74, 77.98 ),
+		point2( 48.21, 77.32 ),
+		point2( 48.15, 76.09 ),
+		point2( 48.62, 75.2 ),
+		point2( 49.51, 74.76 ),
+		point2( 49.22, 73.75 ),
+		point2( 23.58, 81.44 ),
+		point2( 21.56, 74.53 ),
+		point2( 35.54, 70.53 ),
+		point2( 41.96, 68.63 ),
+		point2( 48.27, 66.63 )
+	) ->
+	rotate(
+		2.8,
+		0,
+		0
+	) ->
+	translate(
+		-1.67,
+		2.44,
+		-0.71
+	) ->
+	extrude( 18.55 ) ->
+	toFaces( ) ->
+	if id( ) == "0" then {
+		split(
+			"z",
+			true,
+			0,
+			0.41,
+			3.52,
+			1.57,
+			2.07,
+			1.79,
+			2.04,
+			1.71,
+			2.15,
+			3.3
+		) ->
+		if
+			!index( ) % 10 == 2 && index( ) % 2 == 0
+		then {
+			split(
+				"x",
+				true,
+				0,
+				0.84,
+				1.11,
+				1.17,
+				1.23,
+				1.12,
+				1.24,
+				1.12,
+				1.18,
+				1.23,
+				1.19,
+				1.12,
+				1.24,
+				1.46
+			) ->
+			if
+				index( ) % 2 == 0
+			then { color( "#1a5fb4" ) } else { this }
+		} else {
+			if index( ) == 2 then {
+				split(
+					"x",
+					true,
+					0,
+					0.79,
+					1.24,
+					1.18,
+					1.2,
+					1.04,
+					1.24,
+					1.1,
+					1.24,
+					1.16,
+					1.14,
+					0.69,
+					1.21,
+					1.98
+				) ->
+				if
+					!index( ) % 14 == 12 && index( ) % 2 == 0
+				then {
+					split(
+						"z",
+						true,
+						0,
+						1.58,
+						1.93,
+						0
+					) ->
+					if
+						index( ) % 2 == 0
+					then { color( "#1a5fb4" ) } else { this }
+				} else {
+					if
+						index( ) % 14 == 12
+					then {
+						split(
+							"z",
+							true,
+							0,
+							0.14,
+							1.76,
+							1.59
+						) ->
+						if index( ) == 2 then { color( "#241f31" ) } else { this }
+					} else {
+						this
+					}
+				}
+			} else {
+				if
+					index( ) % 10 == 2
+				then {
+					split(
+						"x",
+						true,
+						0,
+						0.79,
+						1.24,
+						1.18,
+						1.2,
+						1.04,
+						1.24,
+						1.1,
+						1.24,
+						1.16,
+						1.14,
+						0.69,
+						1.21,
+						1.98
+					) ->
+					if
+						index( ) % 2 == 0
+					then {
+						split(
+							"z",
+							true,
+							0,
+							1.58,
+							1.93,
+							0
+						) ->
+						if
+							index( ) % 2 == 0
+						then { color( "#1a5fb4" ) } else { this }
+					} else {
+						this
+					}
+				} else {
+					this
+				}
+			}
+		}
+	} else {
+		this
+	}

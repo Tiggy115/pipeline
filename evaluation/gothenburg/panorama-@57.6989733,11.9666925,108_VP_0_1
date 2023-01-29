@@ -1,0 +1,186 @@
+Start -->
+	face(
+		point2( 62.84, -3.59 ),
+		point2( 66.15, 8.55 ),
+		point2( 31.22, 21.28 ),
+		point2( 31.25, 21.23 ),
+		point2( 29.17, 14.11 ),
+		point2( 42.5, 10.32 ),
+		point2( 44.04, 11.1 ),
+		point2( 53.62, 8.21 ),
+		point2( 51, -0.25 ),
+		point2( 51.78, -0.37 )
+	) ->
+	rotate(
+		2,
+		1,
+		0
+	) ->
+	translate(
+		0.03,
+		-0.88,
+		1.61
+	) ->
+	extrude( 16.85 ) ->
+	toFaces( ) ->
+	if id( ) == "0" then {
+		split(
+			"z",
+			true,
+			0,
+			0.19,
+			3.94,
+			1.16,
+			2.08,
+			1.43,
+			1.93,
+			1.46,
+			2.06,
+			2.57
+		) ->
+		if
+			!index( ) % 10 == 2 && index( ) % 2 == 0
+		then {
+			split(
+				"x",
+				true,
+				0,
+				0.69,
+				0.99,
+				1.31,
+				1.1,
+				1.47,
+				0.95,
+				1.55,
+				0.97,
+				1.48,
+				1.08,
+				1
+			) ->
+			if
+				index( ) % 2 == 0
+			then { color( "#1a5fb4" ) } else { this }
+		} else {
+			if index( ) == 2 then {
+				split(
+					"x",
+					true,
+					0,
+					0.98,
+					1.04,
+					1.14,
+					0.98,
+					1.15,
+					1.37,
+					1.36,
+					1,
+					1.47,
+					1.03,
+					1.05
+				) ->
+				if
+					!index( ) % 14 == 6 && !index( ) % 14 == 2 && index( ) % 2 == 0
+				then {
+					split(
+						"z",
+						true,
+						0,
+						0.3,
+						0.69,
+						1.04,
+						1.85,
+						0.08
+					) ->
+					if
+						index( ) % 2 == 0
+					then { color( "#1a5fb4" ) } else { this }
+				} else {
+					if
+						index( ) % 14 == 2
+					then {
+						split(
+							"z",
+							true,
+							0,
+							0,
+							1.67,
+							1.07,
+							0.92,
+							0.27
+						) ->
+						if index( ) == 2 then {
+							color( "#241f31" )
+						} else {
+							if index( ) == 4 then { color( "#1c71d8" ) } else { this }
+						}
+					} else {
+						if
+							index( ) % 14 == 6
+						then {
+							split(
+								"z",
+								true,
+								0,
+								0.53,
+								1.87,
+								1.27,
+								0.26
+							) ->
+							if index( ) == 2 then {
+								color( "#241f31" )
+							} else {
+								this ->
+								if index( ) == 3 then { color( "#1c71d8" ) } else { this }
+							}
+						} else {
+							this
+						}
+					}
+				}
+			} else {
+				if
+					index( ) % 10 == 2
+				then {
+					split(
+						"x",
+						true,
+						0,
+						0.98,
+						1.04,
+						1.14,
+						0.98,
+						1.15,
+						1.37,
+						1.36,
+						1,
+						1.47,
+						1.03,
+						1.05
+					) ->
+					if
+						index( ) % 2 == 0
+					then {
+						split(
+							"z",
+							true,
+							0,
+							0.3,
+							0.69,
+							1.04,
+							1.85,
+							0.08
+						) ->
+						if
+							index( ) % 2 == 0
+						then { color( "#1a5fb4" ) } else { this }
+					} else {
+						this
+					}
+				} else {
+					this
+				}
+			}
+		}
+	} else {
+		this
+	}

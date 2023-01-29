@@ -1,0 +1,176 @@
+Start -->
+	face(
+		point2( 65.59, 9.5 ),
+		point2( 69.74, 23.98 ),
+		point2( 57.52, 26.91 ),
+		point2( 53.33, 12.89 )
+	) ->
+	translate(
+		0,
+		-1.35,
+		0
+	) ->
+	rotate(
+		1.5,
+		0,
+		0
+	) ->
+	extrude( 19.8 ) ->
+	toFaces( ) ->
+	if id( ) == "0" then {
+		split(
+			"z",
+			true,
+			0,
+			0.22,
+			4.83,
+			1.59,
+			2.08,
+			1.62,
+			1.88,
+			1.77,
+			1.89,
+			3.75
+		) ->
+		if
+			!index( ) % 10 == 2 && index( ) % 2 == 0
+		then {
+			split(
+				"x",
+				true,
+				0,
+				1.62,
+				1.07,
+				2.31,
+				0.94,
+				1.04,
+				1,
+				1,
+				1.06,
+				2.28,
+				1.12,
+				1.63
+			) ->
+			if
+				index( ) % 2 == 0
+			then { color( "#1c71d8" ) } else { this }
+		} else {
+			if index( ) == 2 then {
+				split(
+					"x",
+					true,
+					0,
+					1.65,
+					1.03,
+					2.26,
+					1,
+					1,
+					0.97,
+					1,
+					1,
+					1.74,
+					1.87,
+					1.54
+				) ->
+				if
+					!index( ) % 12 == 10 && !index( ) % 12 == 2 && index( ) % 2 == 0
+				then {
+					split(
+						"z",
+						true,
+						0,
+						0.72,
+						0.7,
+						1.48,
+						1.82,
+						0.1
+					) ->
+					if
+						index( ) % 2 == 0
+					then { color( "#1c71d8" ) } else { this }
+				} else {
+					if
+						index( ) % 12 == 10
+					then {
+						split(
+							"z",
+							true,
+							0.68,
+							2.88,
+							1.26
+						) ->
+						if index( ) == 1 then { color( "#241f31" ) } else { this }
+					} else {
+						if
+							index( ) % 12 == 2
+						then {
+							split(
+								"z",
+								true,
+								2.31,
+								0.64,
+								1.81
+							) ->
+							if index( ) == 2 then {
+								color( "#1c71d8" )
+							} else {
+								if index( ) == 0 then {
+									extrude( 0.84 ) ->
+									toFaces( ) ->
+									if index( ) == 4 then { color( "#241f31" ) } else { this }
+								} else {
+									this
+								}
+							}
+						} else {
+							this
+						}
+					}
+				}
+			} else {
+				if
+					index( ) % 10 == 2
+				then {
+					split(
+						"x",
+						true,
+						0,
+						1.65,
+						1.03,
+						2.26,
+						1,
+						1,
+						0.97,
+						1,
+						1,
+						1.74,
+						1.87,
+						1.54
+					) ->
+					if
+						index( ) % 2 == 0
+					then {
+						split(
+							"z",
+							true,
+							0,
+							0.72,
+							0.7,
+							1.48,
+							1.82,
+							0.1
+						) ->
+						if
+							index( ) % 2 == 0
+						then { color( "#1c71d8" ) } else { this }
+					} else {
+						this
+					}
+				} else {
+					this
+				}
+			}
+		}
+	} else {
+		this
+	}

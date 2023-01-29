@@ -1,0 +1,123 @@
+Start -->
+	face(
+		point2( 67.29, 31.39 ),
+		point2( 69.07, 20.37 ),
+		point2( 75.6, 18.14 ),
+		point2( 80.85, 18.81 ),
+		point2( 82.46, 23.49 ),
+		point2( 80.6, 23.37 ),
+		point2( 80.6, 24.04 ),
+		point2( 81.78, 24.15 ),
+		point2( 81.7, 25.38 ),
+		point2( 80.34, 25.15 ),
+		point2( 80.26, 25.93 ),
+		point2( 83.39, 26.38 ),
+		point2( 84.32, 28.94 ),
+		point2( 86.1, 34.28 ),
+		point2( 78.48, 33.17 ),
+		point2( 75.85, 32.72 )
+	) ->
+	rotate(
+		1,
+		0,
+		0
+	) ->
+	translate(
+		0.86,
+		-0.59,
+		-0.47
+	) ->
+	extrude( 19.71 ) ->
+	toFaces( ) ->
+	if id( ) == "0" then {
+		split(
+			"z",
+			true,
+			0,
+			0.21,
+			2.6,
+			1.1,
+			2.04,
+			1.43,
+			2.19,
+			1.59,
+			1.95,
+			1.38,
+			1.9,
+			3.42
+		) ->
+		if
+			!index( ) % 12 == 2 && index( ) % 2 == 0
+		then {
+			split(
+				"x",
+				true,
+				0,
+				1.31,
+				1.04,
+				1.39,
+				1.11,
+				1.36,
+				1.14,
+				1.51,
+				1.11,
+				1.21
+			) ->
+			if
+				index( ) % 2 == 0
+			then { color( "#1a5fb4" ) } else { this }
+		} else {
+			if index( ) == 2 then {
+				split(
+					"x",
+					true,
+					0,
+					6.15,
+					1.26,
+					1.33,
+					1.24,
+					1.19
+				) ->
+				if
+					index( ) % 6 == 2
+				then {
+					color( "#241f31" )
+				} else {
+					if
+						index( ) % 6 == 4
+					then {
+						split(
+							"z",
+							true,
+							2.25
+						) ->
+						if index( ) == 0 then { color( "#241f31" ) } else { this }
+					} else {
+						this
+					}
+				}
+			} else {
+				if
+					index( ) % 12 == 2
+				then {
+					split(
+						"x",
+						true,
+						0,
+						6.15,
+						1.26,
+						1.33,
+						1.24,
+						1.19
+					) ->
+					if
+						index( ) % 2 == 0
+					then { color( "#1a5fb4" ) } else { this }
+				} else {
+					this
+				}
+			}
+		}
+	} else {
+		this
+	}

@@ -1,0 +1,147 @@
+Start -->
+	face(
+		point2( 34.5, 14.17 ),
+		point2( 36.03, 3.82 ),
+		point2( 50.01, 6.6 ),
+		point2( 49.75, 8.16 ),
+		point2( 51.79, 8.49 ),
+		point2( 49.92, 16.95 )
+	) ->
+	rotate(
+		-1,
+		-1,
+		0
+	) ->
+	translate(
+		0.39,
+		-0.8,
+		-1.77
+	) ->
+	extrude( 21.19 ) ->
+	toFaces( ) ->
+	if id( ) == "0" then {
+		split(
+			"z",
+			true,
+			0,
+			0.32,
+			2.46,
+			2.55,
+			1.9,
+			1.46,
+			1.53,
+			1.85,
+			1.33,
+			1.1,
+			1.66,
+			5.03
+		) ->
+		if
+			!index( ) % 12 == 2 && index( ) % 2 == 0
+		then {
+			split(
+				"x",
+				true,
+				0,
+				2.04,
+				0.89,
+				2.06,
+				0.94,
+				1.84,
+				1.16,
+				1.52
+			) ->
+			if
+				index( ) % 2 == 0
+			then { color( "#1a5fb4" ) } else { this }
+		} else {
+			if index( ) == 2 then {
+				split(
+					"x",
+					true,
+					0,
+					1.79,
+					1.19,
+					1.5,
+					1.76,
+					1.14,
+					1.95,
+					1.12
+				) ->
+				if
+					index( ) % 8 == 2
+				then {
+					split(
+						"z",
+						true,
+						0.44,
+						1.86
+					) ->
+					if index( ) == 1 then { color( "#241f31" ) } else { this }
+				} else {
+					this ->
+					if
+						index( ) % 8 == 4
+					then {
+						split(
+							"z",
+							true,
+							2.2
+						) ->
+						if index( ) == 0 then { color( "#1c71d8" ) } else { this }
+					} else {
+						this ->
+						if
+							index( ) % 8 == 6
+						then {
+							split(
+								"z",
+								true,
+								0.68,
+								1.74
+							) ->
+							if index( ) == 1 then { color( "#1a5fb4" ) } else { this }
+						} else {
+							this
+						}
+					}
+				}
+			} else {
+				if
+					index( ) % 12 == 2
+				then {
+					split(
+						"x",
+						true,
+						0,
+						1.79,
+						1.19,
+						1.5,
+						1.76,
+						1.14,
+						1.95,
+						1.12
+					) ->
+					if
+						index( ) % 2 == 0
+					then {
+						split(
+							"z",
+							true,
+							0.44,
+							1.86
+						) ->
+						if
+							index( ) % 2 == 1
+						then { color( "#1a5fb4" ) } else { this }
+					} else {
+						this
+					}
+				} else {
+					this
+				}
+			}
+		}
+	} else {
+		this
+	}

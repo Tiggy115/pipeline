@@ -1,0 +1,157 @@
+Start -->
+	this ->
+	face(
+		point2( 68.2, 13.89 ),
+		point2( 71.35, 21.65 ),
+		point2( 55.76, 29.59 ),
+		point2( 52.14, 21.19 )
+	) ->
+	rotate(
+		-2,
+		3,
+		0
+	) ->
+	translate(
+		-0.8,
+		-0.57,
+		3.53
+	) ->
+	extrude( 11.44 ) ->
+	toFaces( ) ->
+	if id( ) == "0" then {
+		split(
+			"z",
+			true,
+			0,
+			0.14,
+			2.52,
+			1.09,
+			1.12,
+			1.14,
+			1.06,
+			1.23,
+			1.14,
+			2.03
+		) ->
+		if
+			!index( ) % 10 == 2 && index( ) % 2 == 0
+		then {
+			split(
+				"x",
+				true,
+				0,
+				0.59,
+				0.85,
+				1.2,
+				0.85,
+				1.25,
+				0.87,
+				1.24,
+				0.94,
+				0.58
+			) ->
+			if
+				index( ) % 2 == 0
+			then { color( "#1c71d8" ) } else { this }
+		} else {
+			if index( ) == 2 then {
+				split(
+					"x",
+					true,
+					0,
+					0.61,
+					0.91,
+					1.1,
+					0.92,
+					1.15,
+					0.96,
+					1.2,
+					0.92,
+					0.6
+				) ->
+				if
+					!index( ) % 10 == 2 && index( ) % 2 == 0
+				then {
+					split(
+						"z",
+						true,
+						0,
+						0.01,
+						0.29,
+						1.03,
+						1.13,
+						0.06
+					) ->
+					if
+						index( ) % 6 == 4
+					then {
+						color( "#1c71d8" )
+					} else {
+						if
+							index( ) % 6 == 2
+						then {
+							split(
+								"x",
+								true,
+								0,
+								0.29,
+								0.59,
+								0.04
+							) ->
+							if
+								index( ) % 2 == 0
+							then { color( "#1c71d8" ) } else { this }
+						} else {
+							this
+						}
+					}
+				} else {
+					if
+						index( ) % 10 == 2
+					then { color( "#241f31" ) } else { this }
+				}
+			} else {
+				if
+					index( ) % 10 == 2
+				then {
+					split(
+						"x",
+						true,
+						0,
+						0.61,
+						0.91,
+						1.1,
+						0.92,
+						1.15,
+						0.96,
+						1.2,
+						0.92,
+						0.6
+					) ->
+					if
+						index( ) % 2 == 0
+					then {
+						split(
+							"z",
+							true,
+							0,
+							0.01,
+							0.29,
+							1.03,
+							1.13,
+							0.06
+						) ->
+						if
+							index( ) % 2 == 0
+						then { color( "#1c71d8" ) } else { this }
+					} else {
+						this
+					}
+				} else {
+					this
+				}
+			}
+		}
+	} else {
+		this
+	}

@@ -1,0 +1,202 @@
+Start -->
+	face(
+		point2( 71.29, 24.57 ),
+		point2( 75.69, 39.26 ),
+		point2( 61.71, 43.16 ),
+		point2( 53.08, 45.72 ),
+		point2( 37.86, 51.06 ),
+		point2( 36.01, 44.72 ),
+		point2( 47.2, 41.38 ),
+		point2( 46.48, 39.26 ),
+		point2( 53.92, 36.93 ),
+		point2( 54.45, 38.82 ),
+		point2( 63.14, 36.26 ),
+		point2( 62.9, 35.14 ),
+		point2( 61.23, 35.14 ),
+		point2( 60.1, 34.48 ),
+		point2( 59.39, 33.03 ),
+		point2( 59.92, 31.36 ),
+		point2( 61.29, 30.47 ),
+		point2( 60.58, 27.8 )
+	) ->
+	rotate(
+		2.5,
+		0,
+		0
+	) ->
+	translate(
+		-1.64,
+		0.26,
+		-1.24
+	) ->
+	extrude( 18.1 ) ->
+	toFaces( ) ->
+	if id( ) == "0" then {
+		split(
+			"z",
+			true,
+			0,
+			0.15,
+			2.19,
+			0.66,
+			1.79,
+			1.67,
+			1.79,
+			1.87,
+			1.83,
+			1.78,
+			1.76,
+			2.45
+		) ->
+		if
+			!index( ) % 12 == 4 && !index( ) % 12 == 2 && index( ) % 2 == 0
+		then {
+			split(
+				"x",
+				true,
+				0,
+				1.46,
+				0.94,
+				1.48,
+				1.17,
+				1.1,
+				1.07,
+				1.21,
+				1.07,
+				1,
+				1.2,
+				1.36,
+				1.24,
+				0.91
+			) ->
+			if
+				index( ) % 2 == 0
+			then { color( "#1a5fb4" ) } else { this }
+		} else {
+			if index( ) == 2 then {
+				split(
+					"x",
+					true,
+					0,
+					1.61,
+					1.22,
+					1,
+					1.17,
+					1.15,
+					1.09,
+					1.1,
+					1.12,
+					1.05,
+					1.17,
+					1.37,
+					1.13,
+					1.15
+				) ->
+				if
+					!index( ) % 14 == 2 && !index( ) % 14 == 8 && index( ) % 2 == 0
+				then {
+					split(
+						"z",
+						true,
+						0,
+						0.18,
+						1.53,
+						0.48
+					) ->
+					if
+						index( ) % 2 == 0
+					then { color( "#1a5fb4" ) } else { this }
+				} else {
+					if
+						index( ) % 14 == 2
+					then {
+						this ->
+						color( "#241f31" )
+					} else {
+						if
+							index( ) % 14 == 8
+						then {
+							split(
+								"z",
+								true,
+								2.05
+							) ->
+							if index( ) == 0 then { color( "#241f31" ) } else { this }
+						} else {
+							this
+						}
+					}
+				}
+			} else {
+				if
+					index( ) % 12 == 2
+				then {
+					split(
+						"x",
+						true,
+						0,
+						1.61,
+						1.22,
+						1,
+						1.17,
+						1.15,
+						1.09,
+						1.1,
+						1.12,
+						1.05,
+						1.17,
+						1.37,
+						1.13,
+						1.15
+					) ->
+					if
+						index( ) % 2 == 0
+					then {
+						split(
+							"z",
+							true,
+							0,
+							0.18,
+							1.53,
+							0.48
+						) ->
+						if
+							index( ) % 2 == 0
+						then { color( "#1a5fb4" ) } else { this }
+					} else {
+						this
+					}
+				} else {
+					if
+						index( ) % 12 == 4
+					then {
+						split(
+							"x",
+							true,
+							0,
+							1.46,
+							1.42,
+							1.06,
+							1.17,
+							1.1,
+							1.07,
+							1.21,
+							1.07,
+							1,
+							1.2,
+							1.36,
+							1.09,
+							1.12
+						) ->
+						if
+							index( ) % 2 == 0
+						then { color( "#1a5fb4" ) } else { this }
+					} else {
+						this
+					}
+				}
+			}
+		}
+	} else {
+		this
+	}
